@@ -1,0 +1,26 @@
+{
+  "name": "ai-powered-task-prioritization-app",
+  "version": "1.0.0",
+  "description": "A smart to-do list application that uses artificial intelligence to analyze and prioritize your tasks based on urgency, importance, and context. Built with Node.js, Express.js, and modern web technologies.",
+  "main": "index.js",
+  "scripts": {
+    "install:all": "npm --prefix backend install && npm --prefix client install",
+    "postinstall": "npm run install:all",
+    "dev": "concurrently -n backend,client -c green,blue \"npm --prefix backend run dev\" \"npm --prefix client run dev\"",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shafikul-dev/AI-Powered-Task-Prioritization-App.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shafikul-dev/AI-Powered-Task-Prioritization-App/issues"
+  },
+  "homepage": "https://github.com/shafikul-dev/AI-Powered-Task-Prioritization-App#readme",
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

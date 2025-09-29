@@ -14,7 +14,7 @@ A smart to-do list application that uses artificial intelligence to analyze and 
 - **Loading States**: Visual feedback during AI processing
 - **Error Handling**: Graceful error handling with user-friendly messages
 - **Local Storage**: Tasks persist between browser sessions
-- **Keyboard Shortcuts**: Quick access to common functions
+
 - **Modern UI**: Beautiful, modern interface with smooth animations
 
 ## 🛠️ Technology Stack
@@ -36,10 +36,45 @@ A smart to-do list application that uses artificial intelligence to analyze and 
 - **Local Storage API** - Data persistence
 
 ### AI Integration
-- **OpenAI GPT-3.5-turbo** (default)
-- **Google Gemini** (alternative)
-- **Anthropic Claude** (alternative)
-- **Groq** (fast & free - great for development)
+- **Groq** (fast & free - great for development) llama 8b model used
+
+## ⚡ Quick Start
+
+1. Clone the repo
+```bash
+git clone <repository-url>
+cd ai-powered-task-prioritization-app
+```
+
+2. Configure environments
+```bash
+# Backend (AI keys and port)
+cp backend/env.example backend/.env
+# Set one of: OPENAI_API_KEY / GEMINI_API_KEY / ANTHROPIC_API_KEY / GROQ_API_KEY
+
+# Client (API URL for the backend)
+cp client/env.example client/.env
+# In client/.env set:
+# VITE_API_URL=http://localhost:3000
+```
+
+3. Install and run both apps
+```bash
+npm install
+npm run dev
+```
+
+4. Open the apps
+- Client (Vite): http://localhost:5173
+- Backend API: http://localhost:3000
+- Health check: http://localhost:3000/api/health
+
+5. Prioritize tasks
+- Add tasks in the UI and click "Prioritize Tasks".
+
+### Notes
+- Default AI service in `backend/server.js` is `groq`. Ensure the matching API key is set in `backend/.env`.
+- You can switch providers by changing `AI_SERVICE` in `backend/server.js` and adding the corresponding key in `.env`.
 
 ## 📋 Prerequisites
 
@@ -90,26 +125,26 @@ PORT=3000
 
 ### 4. Start the Application
 
-#### Option 1: Full Stack (Recommended)
+#### Development (Recommended)
 ```bash
-# Build React app and start server
-npm run build
-npm start
+# Installs backend and client automatically, then runs both with hot reload
+npm install
+npm run dev
 ```
 
-#### Option 2: Development Mode
+#### Production (One possible approach)
 ```bash
-# Terminal 1: Start backend server
-npm run dev
-
-# Terminal 2: Start React development server
-npm run client
+# Build the client from /client and serve separately, or add static hosting via Express
+cd client && npm run build && cd ..
+# Start backend (ensure it knows where to serve the built assets if you choose to serve from Express)
+cd backend && npm start
 ```
 
 ### 5. Access the Application
 Open your browser and navigate to:
 ```
-http://localhost:3000
+Client:   http://localhost:5173
+Backend:  http://localhost:3000
 ```
 
 ## 🔧 Configuration
