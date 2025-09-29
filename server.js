@@ -4,14 +4,12 @@ const axios = require('axios');
 require('dotenv').config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 // Middleware
 app.use(cors());
 app.use(express.json());
 
-// Serve static files from React build
-app.use(express.static('client/build'));
 
 // AI Service Configuration
 const AI_SERVICE = 'groq'; // Change to 'gemini', 'anthropic', or 'groq' as needed
@@ -161,6 +159,7 @@ async function callGroq(tasks) {
 /**
  * Main AI processing function
  */
+
 async function processTasksWithAI(tasks) {
   if (!tasks || !Array.isArray(tasks) || tasks.length === 0) {
     throw new Error('No tasks provided');
@@ -192,8 +191,16 @@ async function processTasksWithAI(tasks) {
 }
 
 // API Routes
-app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/client/build/index.html');
+app.get('/',(req,res)=>{
+  res.send("API endpoing is working")
+})
+
+app.get('/api/health', (req, res) => {
+  res.json({ 
+    status: 'OK', 
+    timestamp: new Date().toISOString(),
+    aiService: AI_SERVICE
+  });
 });
 
 app.post('/api/prioritize', async (req, res) => {
@@ -214,6 +221,7 @@ app.post('/api/prioritize', async (req, res) => {
 
     console.log(`Processing ${tasks.length} tasks with AI...`);
     const prioritizedTasks = await processTasksWithAI(tasks);
+    console.log("data formate ",prioritizedTasks)
     
     res.json({
       success: true,
@@ -231,14 +239,7 @@ app.post('/api/prioritize', async (req, res) => {
   }
 });
 
-// Health check endpoint
-app.get('/api/health', (req, res) => {
-  res.json({ 
-    status: 'OK', 
-    timestamp: new Date().toISOString(),
-    aiService: AI_SERVICE
-  });
-});
+// (No duplicate health route)
 
 // Error handling middleware
 app.use((err, req, res, next) => {
@@ -249,12 +250,9 @@ app.use((err, req, res, next) => {
   });
 });
 
-// 404 handler
+// 404 handler for unknown API routes
 app.use((req, res) => {
-  res.status(404).json({
-    success: false,
-    error: 'Endpoint not found'
-  });
+  res.status(404).json({ success: false, error: 'Endpoint not found' });
 });
 
 app.listen(PORT, () => {
