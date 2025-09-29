@@ -1,7 +1,8 @@
 import axios from 'axios';
 import { PrioritizeResponse, ApiError } from '../types';
 
-const API_BASE_URL = process.env.REACT_APP_API_URL ;
+// Default to same-origin; override via Vite env var VITE_API_URL for local dev
+const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || '';
 
 const api = axios.create({
   baseURL: API_BASE_URL,

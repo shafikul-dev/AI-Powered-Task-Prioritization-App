@@ -4,15 +4,8 @@
   "description": "A smart to-do list application that uses AI to prioritize and categorize tasks",
   "main": "server.js",
   "scripts": {
-    "dev": "concurrently \"npm:server\" \"npm:client\"",
-    "start": "node server.js",
-    "server": "nodemon server.js",
-    "client": "cd client && npm start",
-    "client-build": "cd client && npm run build",
-    "setup": "node setup.js",
-    "demo": "node demo-test.js",
-    "build": "npm run client-build",
-    "heroku-postbuild": "npm run build"
+   
+    
   },
   "keywords": [
     "ai",
