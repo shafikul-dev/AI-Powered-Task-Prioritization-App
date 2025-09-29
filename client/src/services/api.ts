@@ -4,6 +4,7 @@ import { PrioritizeResponse, ApiError } from '../types';
 // Default to same-origin; override via Vite env var VITE_API_URL for local dev
 const API_BASE_URL = (import.meta as any).env?.VITE_API_URL || '';
 
+console.log("testing api",API_BASE_URL)
 const api = axios.create({
   baseURL: API_BASE_URL,
   timeout: 30000, // 30 seconds timeout for AI processing
